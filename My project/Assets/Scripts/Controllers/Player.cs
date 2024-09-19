@@ -17,11 +17,16 @@ public class Player : MonoBehaviour
     private float acceleration;
     private float defaultSpeed = 6f;
     private float speed;
+
+    //Task 1c
+    private float decelerationTime = 2f;
+    private float deceleration;
     
     void Start()
     {
         speed = defaultSpeed;
         acceleration = maxSpeed / accelerationTime;
+        deceleration = maxSpeed / decelerationTime;
     }
 
     void Update()
@@ -56,9 +61,11 @@ public class Player : MonoBehaviour
             speed += acceleration * Time.deltaTime;
         }
 
-        if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+        //task1c
+        if (Input.anyKey == false)
         {
-            speed = defaultSpeed;
+            transform.position += Vector3.down * speed * Time.deltaTime;
+            speed -= deceleration * Time.deltaTime;
         }
 
         if (speed >= maxSpeed)
@@ -66,6 +73,10 @@ public class Player : MonoBehaviour
             speed = maxSpeed;
         }
 
+        if (speed < 0)
+        {
+            speed = 0;
+        }
     }
 
 }
