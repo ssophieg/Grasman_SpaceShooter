@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     private float accelerationTime = 5f;
     private float maxSpeed = 15f;
     private float acceleration;
-    private float defaultSpeed = 6f;
+    private float defaultSpeed = 0f;
     private float speed;
 
     //Task 1c
@@ -62,9 +62,29 @@ public class Player : MonoBehaviour
         }
 
         //task1c
+
+        Vector3 endingDirection = new Vector3();
+
+        if (Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            endingDirection = Vector3.up;
+        }
+        else if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            endingDirection = Vector3.down;
+        }
+        else if (Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            endingDirection = Vector3.right;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            endingDirection = Vector3.left;
+        }
+
         if (Input.anyKey == false)
         {
-            transform.position += Vector3.down * speed * Time.deltaTime;
+            transform.position += endingDirection * speed * Time.deltaTime;
             speed -= deceleration * Time.deltaTime;
         }
 
