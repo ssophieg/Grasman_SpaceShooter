@@ -11,17 +11,19 @@ public class Asteroid : MonoBehaviour
     private float distance;
 
     private Vector3 pointRandom = new Vector3();
+    private Vector3 direction = new Vector3();
 
     // Start is called before the first frame update
     void Start()
     {
         pointRandom = new Vector3(Random.Range(-10, maxFloatDistance), Random.Range(-10, maxFloatDistance));
+        direction = pointRandom - transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += pointRandom.normalized * 5f * Time.deltaTime;
+        transform.position += direction.normalized * 5f * Time.deltaTime;
         distance = Vector3.Distance(transform.position, pointRandom);
         Debug.DrawLine(transform.position, pointRandom, color: Color.red);
 
@@ -29,6 +31,7 @@ public class Asteroid : MonoBehaviour
         {
              print("caught");
 ;            pointRandom = new Vector3(Random.Range(0, maxFloatDistance), Random.Range(0, maxFloatDistance));
+             direction = pointRandom - transform.position;
         }
     }
 }
