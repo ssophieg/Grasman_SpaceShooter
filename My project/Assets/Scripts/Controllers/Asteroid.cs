@@ -29,7 +29,7 @@ public class Asteroid : MonoBehaviour
 
         if (distance <= arrivalDistance)
         {
-             print("caught");
+            
 ;            pointRandom = new Vector3(Random.Range(0, maxFloatDistance), Random.Range(0, maxFloatDistance));
              direction = pointRandom - transform.position;
         }
