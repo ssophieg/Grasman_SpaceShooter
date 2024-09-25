@@ -5,6 +5,8 @@ using UnityEngine;
 public class TrigExercize : MonoBehaviour
 {
     public List<float> angles = new List<float>() { 0f, 45f, 90f, 135f, 180f, 270f, 360f };
+
+    //adjust these in inspector
     public float radius;
     public Vector3 offset;
     public float updateFrequency;
