@@ -34,13 +34,12 @@ public class Player : MonoBehaviour
         speed = defaultSpeed;
         acceleration = maxSpeed / accelerationTime;
         deceleration = maxSpeed / decelerationTime;
-        
+        PowerUps();
 
     }
 
     void Update()
     {
-        PowerUps();
         PlayerMovement();
         PlayerCircle();
 
