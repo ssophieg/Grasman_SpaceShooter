@@ -1,4 +1,5 @@
 ﻿using Codice.Client.BaseCommands;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,17 +22,25 @@ public class Player : MonoBehaviour
     //Task 1c
     private float decelerationTime = 2f;
     private float deceleration;
-    
+
+
+
+
     void Start()
     {
         speed = defaultSpeed;
         acceleration = maxSpeed / accelerationTime;
         deceleration = maxSpeed / decelerationTime;
+
     }
 
     void Update()
     {
+
         PlayerMovement();
+        PlayerCircle();
+
+        Debug.DrawLine(transform.position, enemyTransform.position, Color.magenta);
     }
 
     void PlayerMovement()
@@ -96,6 +105,40 @@ public class Player : MonoBehaviour
         if (speed < 0)
         {
             speed = 0;
+        }
+    }
+
+    //Joural 4 Task 1
+    void PlayerCircle()
+    {
+        List<float> degrees = new List<float>();
+        float circlePoints = 10;
+        float radius = 5;
+        List<Vector3> startPoints = new List<Vector3>();
+        List<Vector3> endPoints = new List<Vector3>();
+
+        Color lineColor = Color.green;
+        degrees.Add(0);
+
+        if (Vector3.Distance(transform.position, enemyTransform.position) <= radius)
+        {
+            lineColor = Color.red;
+        }
+        else
+        {
+            lineColor = Color.green;
+        }
+
+        for (int i = 0; i < circlePoints; i++)
+        {
+            degrees.Add(360 / circlePoints * (i+1));
+            startPoints.Add(Vector3.zero);
+            endPoints.Add(Vector3.zero);
+
+            //calculate start and end points
+            startPoints[i] = (new Vector3(Mathf.Cos(degrees[i] * Mathf.Deg2Rad), Mathf.Sin(degrees[i] * Mathf.Deg2Rad)) * radius + transform.position);
+            endPoints[i] = (new Vector3(Mathf.Cos(degrees[i+1] * Mathf.Deg2Rad), Mathf.Sin(degrees[i+1] * Mathf.Deg2Rad)) * radius + transform.position);
+            Debug.DrawLine(startPoints[i], endPoints[i], lineColor);
         }
     }
 
