@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     public GameObject bombPrefab;
     public Transform bombsTransform;
 
+    //power up
+    public GameObject powerUpPrefab;
+
     private Vector3 velocity = Vector3.right * 0.001f;
 
     private float accelerationTime = 5f;
@@ -31,12 +34,13 @@ public class Player : MonoBehaviour
         speed = defaultSpeed;
         acceleration = maxSpeed / accelerationTime;
         deceleration = maxSpeed / decelerationTime;
+        
 
     }
 
     void Update()
     {
-
+        PowerUps();
         PlayerMovement();
         PlayerCircle();
 
@@ -139,6 +143,26 @@ public class Player : MonoBehaviour
             startPoints[i] = (new Vector3(Mathf.Cos(degrees[i] * Mathf.Deg2Rad), Mathf.Sin(degrees[i] * Mathf.Deg2Rad)) * radius + transform.position);
             endPoints[i] = (new Vector3(Mathf.Cos(degrees[i+1] * Mathf.Deg2Rad), Mathf.Sin(degrees[i+1] * Mathf.Deg2Rad)) * radius + transform.position);
             Debug.DrawLine(startPoints[i], endPoints[i], lineColor);
+        }
+    }
+
+    void PowerUps()
+    {
+        List<float> degrees = new List<float>();
+        float numberOfPowerUps = 5;
+        float radius = 5;
+        List<Vector3> powerPoints = new List<Vector3>();
+
+        Color lineColor = Color.green;
+
+        for (int i = 0; i <= numberOfPowerUps; i++)
+        {
+            degrees.Add(360 / numberOfPowerUps * (i));
+            powerPoints.Add(Vector3.zero);
+
+            //calculate start and end points
+            powerPoints[i] = (new Vector3(Mathf.Cos(degrees[i] * Mathf.Deg2Rad), Mathf.Sin(degrees[i] * Mathf.Deg2Rad)) * radius + transform.position);
+            Instantiate(powerUpPrefab, powerPoints[i], Quaternion.identity);
         }
     }
 
