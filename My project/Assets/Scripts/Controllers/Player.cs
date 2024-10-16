@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    //Joural 4 Task 1
+    //Journal 4 Task 1
     void PlayerCircle()
     {
         List<float> degrees = new List<float>();
