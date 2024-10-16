@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6890330259706833056}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,4 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d47aa4a8b38e97448c22dbfdc9e14da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HomingMissilePrefab: {fileID: 0}
+  asteroidTransforms: []
+  enemyTransform: {fileID: 0}
+  bombPrefab: {fileID: 0}
+  bombsTransform: {fileID: 0}
+  powerUpPrefab: {fileID: 0}

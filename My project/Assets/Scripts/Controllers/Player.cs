@@ -30,12 +30,21 @@ public class Player : MonoBehaviour
     private float powerUpFront;
     private float powerUpRandom;
 
+    //3rd Mechanic
+    private bool poweredUp = false;
+    private bool red = false;
+
+    private Color lineColor = Color.green;
+    private Color powerColor = Color.green;
+
+    private float redTime = 0;
+
     void Start()
     {
         speed = defaultSpeed;
         acceleration = maxSpeed / accelerationTime;
         deceleration = maxSpeed / decelerationTime;
-        PowerUps();
+        //PowerUps();
 
     }
 
@@ -125,17 +134,30 @@ public class Player : MonoBehaviour
         float radius = 5;
         List<Vector3> startPoints = new List<Vector3>();
         List<Vector3> endPoints = new List<Vector3>();
-
-        Color lineColor = Color.green;
         degrees.Add(0);
 
-        if (Vector3.Distance(transform.position, enemyTransform.position) <= radius)
+        if (Vector3.Distance(transform.position, enemyTransform.position) <= radius && poweredUp == true && red == true)
+        {
+
+            //disable power up color
+
+            powerColor = Color.green;
+            poweredUp = false;
+        }
+        if(Vector3.Distance(transform.position, enemyTransform.position) <= radius && red == true)
         {
             lineColor = Color.red;
+
+            redTime = redTime + Time.deltaTime;
+            if (redTime >= 1)
+            {
+                red = false;
+                redTime = 0;
+            }
         }
         else
         {
-            lineColor = Color.green;
+            lineColor = powerColor;
         }
 
         for (int i = 0; i < circlePoints; i++)
@@ -186,6 +208,18 @@ public class Player : MonoBehaviour
             powerUpPos = new Vector3(UnityEngine.Random.Range(-18.0f, 40.0f), UnityEngine.Random.Range(-12.0f, 12.0f), 0f);
             GameObject.Instantiate(powerUpPrefab, powerUpPos, Quaternion.identity);
             powerUpRandom = 0;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Power Up")
+        {
+            Debug.Log("powered up!!");
+            GameObject.Destroy(collision.gameObject);
+            powerColor = Color.yellow;
+            poweredUp = true;
+            red = true;
         }
     }
 
