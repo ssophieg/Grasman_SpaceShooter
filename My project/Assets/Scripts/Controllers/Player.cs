@@ -26,8 +26,9 @@ public class Player : MonoBehaviour
     private float decelerationTime = 2f;
     private float deceleration;
 
-
-
+    //2nd Mechanic
+    private float powerUpFront;
+    private float powerUpRandom;
 
     void Start()
     {
@@ -44,6 +45,11 @@ public class Player : MonoBehaviour
         PlayerCircle();
 
         Debug.DrawLine(transform.position, enemyTransform.position, Color.magenta);
+
+        powerUpFront += Time.deltaTime;
+        powerUpRandom += Time.deltaTime;
+
+        spawnPowerUps();
     }
 
     void PlayerMovement()
@@ -162,6 +168,24 @@ public class Player : MonoBehaviour
             //calculate start and end points
             powerPoints[i] = (new Vector3(Mathf.Cos(degrees[i] * Mathf.Deg2Rad), Mathf.Sin(degrees[i] * Mathf.Deg2Rad)) * radius + transform.position);
             Instantiate(powerUpPrefab, powerPoints[i], Quaternion.identity);
+        }
+    }
+
+    //2nd Mechanic
+    void spawnPowerUps()
+    {
+        Vector3 powerUpPos = new Vector3();
+        if (powerUpFront >= 20)
+        {
+            GameObject.Instantiate(powerUpPrefab, transform.position + Vector3.up * 5, Quaternion.identity);
+            powerUpFront = 0;
+        }
+
+        if (powerUpRandom >= 15)
+        {
+            powerUpPos = new Vector3(UnityEngine.Random.Range(-18.0f, 40.0f), UnityEngine.Random.Range(-12.0f, 12.0f), 0f); ;
+            GameObject.Instantiate(powerUpPrefab, powerUpPos, Quaternion.identity);
+            powerUpRandom = 0;
         }
     }
 
