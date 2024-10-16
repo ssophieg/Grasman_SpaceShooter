@@ -183,7 +183,7 @@ public class Player : MonoBehaviour
 
         if (powerUpRandom >= 15)
         {
-            powerUpPos = new Vector3(UnityEngine.Random.Range(-18.0f, 40.0f), UnityEngine.Random.Range(-12.0f, 12.0f), 0f); ;
+            powerUpPos = new Vector3(UnityEngine.Random.Range(-18.0f, 40.0f), UnityEngine.Random.Range(-12.0f, 12.0f), 0f);
             GameObject.Instantiate(powerUpPrefab, powerUpPos, Quaternion.identity);
             powerUpRandom = 0;
         }
