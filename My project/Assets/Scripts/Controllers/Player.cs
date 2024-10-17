@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
         PlayerMovement();
         PlayerCircle();
 
-        Debug.DrawLine(transform.position, enemyTransform.position, Color.magenta);
+        //Debug.DrawLine(transform.position, enemyTransform.position, Color.magenta);
 
         powerUpFront += Time.deltaTime;
         powerUpRandom += Time.deltaTime;
@@ -149,7 +149,7 @@ public class Player : MonoBehaviour
             lineColor = Color.red;
 
             redTime = redTime + Time.deltaTime;
-            if (redTime >= 1)
+            if (redTime >= 0.5)
             {
                 red = false;
                 redTime = 0;

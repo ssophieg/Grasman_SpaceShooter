@@ -25,7 +25,7 @@ public class Asteroid : MonoBehaviour
     {
         transform.position += direction.normalized * 5f * Time.deltaTime;
         distance = Vector3.Distance(transform.position, pointRandom);
-        Debug.DrawLine(transform.position, pointRandom, color: Color.red);
+        //Debug.DrawLine(transform.position, pointRandom, color: Color.red);
 
         if (distance <= arrivalDistance)
         {
