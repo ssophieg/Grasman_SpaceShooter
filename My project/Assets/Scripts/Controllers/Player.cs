@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -39,6 +40,13 @@ public class Player : MonoBehaviour
 
     private float redTime = 0;
 
+    //Bonus Mechanic
+    public Text enemyHealth;
+    public Text playerHealth;
+
+    private float enemyHP = 5;
+    private float playerHP = 5;
+
     void Start()
     {
         speed = defaultSpeed;
@@ -59,6 +67,21 @@ public class Player : MonoBehaviour
         powerUpRandom += Time.deltaTime;
 
         spawnPowerUps();
+
+        if (enemyHP <= 0)
+        {
+            enemyHealth.text = "YEAHH YOU WIN RAAAA";
+        }
+        else if (playerHP <= 0)
+        {
+            playerHealth.text = "dieded :(";
+            enemyHealth.text = "L bozo loser L";
+        }
+        else
+        {
+            enemyHealth.text = enemyHP.ToString();
+            playerHealth.text = playerHP.ToString();
+        }
     }
 
     void PlayerMovement()
@@ -143,6 +166,7 @@ public class Player : MonoBehaviour
 
             powerColor = Color.green;
             poweredUp = false;
+            enemyHP -= 1;
         }
         if(Vector3.Distance(transform.position, enemyTransform.position) <= radius && red == true)
         {
@@ -220,6 +244,14 @@ public class Player : MonoBehaviour
             powerColor = Color.yellow;
             poweredUp = true;
             red = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Bomb")
+        {
+            playerHP -= 1;
         }
     }
 
